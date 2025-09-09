@@ -1,27 +1,30 @@
 const express = require("express");
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
-const app = express();
+const app = new express();
 const PORT = process.env.PORT || 3002;
-const url = "mongodb://localhost:27017";
-const dbName = "store";
 
-MongoClient.connect(url, (err, client) => {
-  if (err) throw err;
-  console.log("MongoDB connected");
+mongoose
+  .connect("mongodb://127.0.0.1:27017/mentorbro", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB locally"))
+  .catch((err) => console.error("Connection error:", err));
 
-  const db = client.db(dbName);
-
-  db.collection("product")
-    .find()
-    .toArray((err, result) => {
-      if (err) throw err;
-      console.log(result);
-    });
-});
+const db = mongoose.connection;
 
 app.get("/", (req, res) => {
-  res.send("Welcome to MongoDB with Express");
+  db.collection("Employees")
+    .find()
+    .toArray()
+    .then((result) => {
+      console.log("Employees data:", result);
+    })
+    .catch((err) => {
+      console.error("Error fetching data:", err);
+      res.status(500).json({ error: "Failed to fetch data" });
+    });
 });
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
