@@ -1,0 +1,29 @@
+/* .container {
+  background-color: rgb(244, 181, 87);
+  height: 100px;
+}
+.container-fluid {
+  background-color: rgb(147, 244, 87);
+  height: 100px;
+} */
+
+/* .container {
+  border: 2px solid blue;
+}
+
+.row {
+  border: 2px solid red;
+}
+.col-3,.col-9,.col-sm-4 {
+  border: 2px solid rgb(4, 5, 2);
+  background-color: aqua;
+} */
+
+
+
+.box{
+    height: 70%;
+    width: 70%;
+}
+
+
